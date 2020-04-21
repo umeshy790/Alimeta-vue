@@ -9,7 +9,7 @@ Vue.use(VueApollo);
 // HTTP connection to the API
 const httpLink = createHttpLink({
   // You should use an absolute URL here
-  uri: path
+  uri: path,
 });
 
 // Cache implementation
@@ -18,11 +18,11 @@ const cache = new InMemoryCache();
 // Create the apollo client
 const apolloClient = new ApolloClient({
   link: httpLink,
-  cache
+  cache,
 });
 
 const apolloProvider = new VueApollo({
-  defaultClient: apolloClient
+  defaultClient: apolloClient,
 });
 
-export default apolloProvider
+export default apolloProvider;

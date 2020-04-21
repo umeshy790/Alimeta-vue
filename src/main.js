@@ -2,24 +2,24 @@ import Vue from "vue";
 import App from "./App.vue";
 import apolloProvider from "./vue-apollo";
 import DetailedArticle from "../src/components/DetailedArticle.vue";
-import Container from "../src/components/Container.vue"
+import Container from "../src/components/Container.vue";
 import VueRouter from "vue-router";
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 
 const routes = [
-  { path: "/", component: Container },
-  { path: "article", component: DetailedArticle }
+  { path: "/", name: "home", component: Container },
+  { path: "/article", name: "article", component: DetailedArticle },
 ];
 
 const router = new VueRouter({
   mode: "history",
-  routes
+  routes,
 });
 
 new Vue({
   apolloProvider,
   router,
-  render: createElement => createElement(App)
+  render: (createElement) => createElement(App),
 }).$mount("#app");
