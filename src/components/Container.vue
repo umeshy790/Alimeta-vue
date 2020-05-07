@@ -1,17 +1,10 @@
 <template>
   <div v-if="response">
     <div class="upper-container">
-      <img :src="response.results[0].fields.thumbnail" style="height:35vh; width : 100vw; object-fit : cover" alt="photo" srcset="" />
-      <div id="block">
-        <span id="title">{{ response.results[0].webTitle }}</span>
-        <div class="section-and-date">
-          <div class="section">{{ response.results[0].sectionName }}</div>
-          <span>{{ formateDate(response.results[0].webPublicationDate) }}</span>
-        </div>
-      </div>
+      <TopArticles v-bind:articles="response.results.slice(0, 5)"></TopArticles>
     </div>
     <div class="lower-container">
-      <Article v-for="(result, index) in response.results" :key="index" v-on:detailedArticle="goToDetailedArticle($event)" v-bind:result="result"></Article>
+      <Article v-for="(result, index) in response.results.slice(5, response.results.length)" :key="index" v-on:detailedArticle="goToDetailedArticle($event)" v-bind:result="result"></Article>
       <div style="padding : 16px">
         <button v-on:click="loadMore">Load More</button>
       </div>
@@ -23,10 +16,11 @@
 import gql from "graphql-tag";
 import { getMonth } from "../utils/util";
 import Article from "./Article";
+import TopArticles from "./TopArticles";
 
 export default {
   name: "Container",
-  components: { Article },
+  components: { Article, TopArticles },
   data: () => ({
     page: 1,
   }),
@@ -89,33 +83,16 @@ export default {
 <style>
 .upper-container {
   background-color: #ffffff;
-  height: 48vh;
+  height: 33vh;
 }
 
 .lower-container {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  height: 50.8vh;
+  height: 65.5vh;
   overflow-x: hidden;
   overflow-y: auto;
   background: #ffffff;
-}
-
-#block {
-  padding: 10px;
-  height: 12vh;
-  overflow: hidden;
-  box-sizing: border-box;
-  background: #ffffff;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-#title {
-  font-size: 0.95em;
-  text-align: start;
-  display: block;
 }
 </style>

@@ -37,6 +37,7 @@ export default {
   flex-direction: column;
   justify-content: space-between;
 }
+
 .result {
   min-height: 110px;
   background: #ffffff;
